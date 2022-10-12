@@ -89,9 +89,10 @@ const genres = [
 
 const main = document.getElementById('main');
 const form = document.getElementById('form');
-const buscar = document.getElementById('buscar');
+const search = document.getElementById('search');
 const tagsEl = document.getElementById('tags');
 
+// Trae las etiquetas desde la API y las muestra en la pagina principal mandandolas a un div
 var selectedGenre = []
 setGenre();
 function setGenre() {
@@ -124,18 +125,59 @@ function setGenre() {
 }
 
 
+// poder seleccionar y quitar la seleccion de una etiqueta
+function highlightSelection(){
+  const tags = document.querySelectorAll('.tag');
+    tags.forEach(tag => {
+        tag.classList.remove('highlight')
+    })
+  clearBtn();
+  if(selectedGenre.length !== 0){
+    selectedGenre.forEach(id =>{
+      const  highlightTag = document.getElementById(id);
+      highlightTag.classList.add('highlight')
+    })
+  }
+}
 
 
 
+function clearBtn(){
+  let clearBtn = document.getElementById('clear');
+  if(clearBtn){
+    clearBtn.classList.add('highlight');
+  }else{
+    let clear = document.createElement('div');
+    clear.classList.add('tag', 'highlight');
+    clear.id = 'clear';
+    clear.innerText = 'Clear x';
+    clear.addEventListener('click', () =>{
+      selectedGenre = [];
+      setGenre();
+      ObtenerPelis(API_Url);
+    });
+    tagsEl.append(clear)
+  }
+
+  ;
+}
+
+// Trae las peliculas en formato Json desde la API
 ObtenerPelis(API_Url);
 
 function ObtenerPelis(url){
     fetch(url).then(res => res.json()).then(data =>{
         console.log(data.results)
-        MostrarPelis(data.results)
+        if(data.results.length !== 0){
+          MostrarPelis(data.results);
+        }else{
+          main.innerHTML = `<h1 class="no-result"> No hay resultado </h1>`
+
+        }
     }) 
 }
 
+// Muestra las Peliculas en la pagina principal, reemplazando textos de un div 
 function MostrarPelis(data){
     main.innerHTML = '';
     
@@ -144,7 +186,7 @@ function MostrarPelis(data){
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
         movieEl.innerHTML = `
-            <img src="${Img_Url+poster_path}" alt="${title}">
+            <img src="${poster_path? Img_Url+poster_path: "http://via.placeholder.com/1080x1580"}" alt="${title}">
 
             <div class="movie-info">
                 <h3>${title}</h3>
@@ -157,7 +199,6 @@ function MostrarPelis(data){
         </div>
         
         `
-
         main.appendChild(movieEl);      
     })
 }
@@ -172,15 +213,17 @@ function getColor(vote) {
     }
 }
 
+// Buscador
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-form.addEventListener('submit', (e) =>{
-    e.preventDefault();
+  const searchTerm = search.value;
+  selectedGenre=[];
+  setGenre();
+  if(searchTerm) {
+      ObtenerPelis(BuscarUrl+'&query='+searchTerm)
+  }else{
+      ObtenerPelis(API_Url);
+  }
 
-    const buscarPeli = buscar.value;
-    
-    if(buscarPeli){
-        ObtenerPelis(BuscarUrl+'&query='+buscarPeli)
-    }else{
-        ObtenerPelis(API_Url);
-    }
 })

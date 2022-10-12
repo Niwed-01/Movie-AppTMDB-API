@@ -21,7 +21,7 @@ header{
     justify-content: flex-end;
     background-color: var(--color-secundario);
 }
-.buscar{
+.search{
     background-color: transparent;
     border: 2px solid var(--color-primario);
     padding: 0.5rem 1rem;
@@ -35,16 +35,17 @@ header{
     color: #fff;
     font-size: 35px;
     padding: 0 80px;
-    font-weight: bold;;
+    font-weight: bold;
+    
 }
 
 
-.buscar:focus{
+.search:focus{
     outline: 0;
     background-color: var(--color-primario);   
 }
 
-.buscar::placeholder{
+.search::placeholder{
     color: #737bc5;
 }
 
@@ -136,4 +137,12 @@ main{
 
 .tag.highlight{
     background-color: red;
+}
+
+
+.tag.highlight{
+    background-color: red;
+}
+.no-result{
+    color: #fff;
 }
