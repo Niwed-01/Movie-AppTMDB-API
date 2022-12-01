@@ -5,7 +5,7 @@
 }
 
 :root{
-    --primary-color:#22254b;
+    --primary-color: #142d4c;
     --secondary-color: #373b69;
 }
 
@@ -19,7 +19,7 @@ body{
 header{
     padding:1rem;
     display:flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     background-color: var(--secondary-color);
 }
 
@@ -31,7 +31,17 @@ header{
     
 }
 
+.logo a {
+    /* width: 100px; */
+    color: #fff;
+    font-size: 35px;
+    /* padding: 0 80px; */
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .search{
+    width: 500px;
     background-color: transparent;
     border: 2px solid var(--primary-color);
     padding:0.5rem 1rem;
@@ -44,6 +54,8 @@ header{
 .search:focus{
     outline:0;
     background-color: var(--primary-color);
+    transition-duration: 0.2s;
+    transition-delay: 0.1s;
 }
 
 .search::placeholder{
@@ -109,6 +121,7 @@ main{
     right:0;
     bottom:0;
     background-color: #fff;
+    border-radius: 4px;
     padding: 1rem;
     max-height: 100%;
     transform:translateY(101%);
@@ -131,7 +144,7 @@ main{
 .tag{
     color:white;
     padding:10px 20px;
-    background-color: orange;
+    background-color: #24babc;
     border-radius: 50px;
     margin:5px;
     display:inline-block;
@@ -172,7 +185,8 @@ main{
 }
 
 .know-more{
-    background-color: orange;
+    width: 100%;
+    background-color: #24babc;
     color:white;
     font-size: 16px;
     font-weight: bold;
@@ -180,7 +194,17 @@ main{
     border-radius: 50px;
     padding: 10px 20px;
     margin-top: 5px;
+    cursor: pointer;
+    transition: 5ms all;
 }
+
+.know-more:hover{
+    background-color: #142d4c;
+    transition-duration: 0.2s;
+    transition-delay: 0.1s;
+}
+
+
 /* La superposición (fondo) */
 .overlay {
     /* La altura y la anchura dependen de cómo se quiera mostrar la superposición (ver JS más abajo) */   
@@ -281,4 +305,18 @@ main{
 
 .dots .dot.active{
     border-color: orange;
+}
+
+footer{
+    display: flex;
+    background: var(--secondary-color);
+    padding: 10px;
+}
+
+footer span{
+    color: #ccc;
+    padding: 10px;
+    margin-top: 5px;
+    padding-left: 50px;
+    text-align: center;
 }
